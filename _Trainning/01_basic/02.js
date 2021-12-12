@@ -28,3 +28,5 @@ function solve(input) {
         console.log(b);
     }
 };
+
+solve();
