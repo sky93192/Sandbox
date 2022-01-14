@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'DFKai-SB';
+  src: 
+	local("DFKai-SB"),
+	url('../font/kaiu.ttf') format("truetype"),
+	url('../font/kaiu.woff') format("woff");
+}
+
+* {
+	font-family: "標楷體",DFKai-SB, Times, serif !important;
+}
+
+.container {
+	max-width: 100%;
+	position: relative;
+	justify-content: center;
+	text-align: center;
+}
+
+main {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+table {
+	font-size: 14px;
+	width: 80%;
+	border: 5px solid #bbb;
+	text-align: center;
+	border-collapse: collapse;
+	margin: auto;
+}
+
+thead {
+	padding: 10px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+td {
+	border: 1px solid #bbb;
+	padding: 5px;
+}
+
+input {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+select {
+	border: 2px solid rgb(190, 190, 190);
+	border-radius: 4px;
+	background-color: #fff;
+	color: #000;
+}
+
+.add_button {
+background-color: #66ff99;
+}
+
+.back_button{
+	background-color: #bbb;
+}
+
+.img_button {
+	background-color: #fff;
+	border: #fff;
+}
+
+#edit {
+	background-color: #ff9900;
+}
+
+#delete {
+	background-color: #ff0000;
+}
+
+#page {
+	width: 50px;
+}
+
+.instruction {
+	color: #003399;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+option {
+	color: #003399;
+	font-size: 13px;
+}

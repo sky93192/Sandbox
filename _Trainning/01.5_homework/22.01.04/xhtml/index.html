@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/main.css">
+	<title>Document</title>
+</head>
+
+<body>
+	<div class="container">
+
+		<!-- 標題 -->
+		<div class="title">
+			<h2>書籍管理系統</h2>
+			<br>
+		</div>
+
+		<div class="main">
+			<form action="">
+				<span>匯出資料</span>
+				<input type="submit" name="export" value="Export">
+			</form>
+			<br>
+			<!-- 搜尋列 -->
+			<form action="" method="post">
+				<div class="search">
+					<span>排序</span>
+					<select name="search_menu" id="search_menu">
+						<option name="none" value="none">選擇排序...</option>
+						<option name="publisher" value="publisher">出版社</option>
+						<option name="name" value="name">書名</option>
+						<option name="author" value="author">作者</option>
+						<option name="price" value="price">定價</option>
+						<option name="release_date" value="release_date">發行日</option>
+					</select>
+
+					<span>方向</span>
+					<select name="direction" id="direction">
+						<option name="ASC" value="ASC">ASC</option>
+						<option name="DESC" value="DESC">DESC</option>
+					</select>
+
+					<input type="submit" name="sort" value="搜尋">
+				</div>
+
+			</form>
+			<!-- 表格 -->
+			<table class="table">
+				<thead>
+					<tr>
+						<td>ISBN</td>
+						<td>出版社</td>
+						<td>書名</td>
+						<td>作者</td>
+						<td>定價</td>
+						<td>發行日</td>
+						<td>編輯/刪除</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>ISBN</td>
+						<td>出版社</td>
+						<td>書名</td>
+						<td>作者</td>
+						<td>定價</td>
+						<td>發行日</td>
+						<td>
+							<div class="row">
+								<input type="button" href="" name="edit" value="Edit">
+								<input type="button" href="" name="delete" value="Delete">
+							</div>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			<br>
+
+			<input type="button" href="" name="add" value="ADD">
+
+
+		</div>
+
+	</div>
+</body>
+
+</html>

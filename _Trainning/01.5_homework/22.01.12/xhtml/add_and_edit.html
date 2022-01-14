@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style/main.css">
+	<title>Document</title>
+	<style>
+		table {
+			border-spacing: 0;
+			width: 20%;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+
+		<!-- 標題 -->
+		<div class="title">
+			<h1>書籍管理系統</h1>
+			<h3><?= $title ?></h3>
+		</div>
+
+		<!-- 內文 -->
+		<div class="main">
+			<form action="add_and_edit.php" method="post">
+				<!-- 表格 -->
+				<table class="table">
+						<tr>
+							<td>ISBN</td>
+							<td>
+								<input type="text" id="new_isbn" name="new_isbn" value="<?= (isset($isbn))?$isbn:''; ?>" <?= (isset($isbn))?'disabled="disabled"':''; ?> required placeholder="000-000-000-0">
+								<?php
+								if(isset($isbn)){
+									echo '<input type="text" id="old_isbn" name="old_isbn" value="'. $isbn ,'" hidden>';
+								}
+								?>
+							</td>
+						</tr>
+
+						<tr>
+							<td>出版社</td>
+							<td>
+								<input type="text" id="new_publisher" name="new_publisher" value="<?= (isset($colum['publisher']))?$colum['publisher']:''; ?>" required placeholder="請輸入文字">
+							</td>
+						</tr>
+
+						<tr>
+							<td>書名</td>
+							<td>
+								<input type="text" id="new_book_name" name="new_book_name" value="<?= (isset($colum['book_name']))?$colum['book_name']:''; ?>" required placeholder="請輸入文字">
+							</td>
+						</tr>
+
+						<tr>
+							<td>作者</td>
+							<td>
+								<input type="text" id="new_author" name="new_author" value="<?= (isset($colum['author']))?$colum['author']:''; ?>" required placeholder="請輸入文字">
+							</td>
+						</tr>
+
+						<tr>
+							<td>定價</td>
+							<td>
+								<input type="text" id="new_price" name="new_price" value="<?= (isset($colum['price']))?$colum['price']:''; ?>" required placeholder="請輸入數字">
+							</td>
+						</tr>
+						
+						<tr>
+							<td>發行日</td>
+							<td>
+								<input type="date" id="new_release_date" name="new_release_date" value="<?= (isset($colum['release_date']))?$colum['release_date']:''; ?>" required>
+							</td>
+						</tr>
+
+				</table>
+				<br>
+				<button type="button" name="back" class="back_button" value="Back" onclick="location.href='index.php';">返回</button>
+				<?php if(isset($colum['isbn'])){
+					echo '
+					<input type="hidden" name="edit_isbn" disable="disable" value="' . $colum['isbn'] . '">
+					<input type="submit" name="edit_record" class="add_button" value="編輯紀錄">
+					';
+				}else{
+					echo '
+					<input type="submit" name="add_record" class="add_button" value="新增紀錄">
+					';
+				} 
+				?>
+				
+
+			</form>
+
+		</div>
+
+	</div>
+</body>
+</html>
