@@ -42,21 +42,21 @@
 						<tr>
 							<td>出版社</td>
 							<td>
-								<input type="text" id="new_publisher" name="new_publisher" value="<?= (isset($colum['publisher']))?$colum['publisher']:''; ?>" required placeholder="請輸入文字">
+								<input type="text" id="new_publisher" name="new_publisher" value="<?= (isset($colum['publisher']))?htmlentities($colum['publisher']):''; ?>" required placeholder="請輸入文字">
 							</td>
 						</tr>
 
 						<tr>
 							<td>書名</td>
 							<td>
-								<input type="text" id="new_book_name" name="new_book_name" value="<?= (isset($colum['book_name']))?$colum['book_name']:''; ?>" required placeholder="請輸入文字">
+								<input type="text" id="new_book_name" name="new_book_name" value="<?= (isset($colum['book_name']))?htmlentities($colum['book_name']):''; ?>" required placeholder="請輸入文字">
 							</td>
 						</tr>
 
 						<tr>
 							<td>作者</td>
 							<td>
-								<input type="text" id="new_author" name="new_author" value="<?= (isset($colum['author']))?$colum['author']:''; ?>" required placeholder="請輸入文字">
+								<input type="text" id="new_author" name="new_author" value="<?= (isset($colum['author']))?htmlentities($colum['author']):''; ?>" required placeholder="請輸入文字">
 							</td>
 						</tr>
 
@@ -76,18 +76,20 @@
 
 				</table>
 				<br>
-				<button type="button" name="back" class="back_button" value="Back" onclick="location.href='index.php';">返回</button>
-				<?php if(isset($colum['isbn'])){
-					echo '
-					<input type="hidden" name="edit_isbn" disable="disable" value="' . $colum['isbn'] . '">
-					<input type="submit" name="edit_record" class="add_button" value="編輯紀錄">
-					';
-				}else{
-					echo '
-					<input type="submit" name="add_record" class="add_button" value="新增紀錄">
-					';
-				} 
-				?>
+				<div class="bottom_line">
+					<button type="button" name="back" class="back_button" value="Back" onclick="location.href='index.php';">返回</button>
+					<?php if(isset($colum['isbn'])){
+						echo '
+						<input type="hidden" name="edit_isbn" disable="disable" value="' . $colum['isbn'] . '">
+						<input type="submit" name="edit_record" class="add_button" value="編輯紀錄">
+						';
+					}else{
+						echo '
+						<input type="submit" name="add_record" class="add_button" value="新增紀錄">
+						';
+					} 
+					?>
+				</div>
 				
 
 			</form>

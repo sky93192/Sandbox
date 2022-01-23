@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
 	<script src="./js/index.js"></script>
 	<title>Document</title>
 </head>
+
 <body>
 	<div class="container">
 
@@ -18,120 +20,164 @@
 		</div>
 
 		<div class="main">
-			<form id="export_form" action="index.php" method="post">
-				<!-- 匯出 -->
-				<span class="instruction">匯出方式</span>
-				<select name="export_part" id="export_part">
-					<option name="export_all" value="export_all">匯出全部</option>
-					<option name="export_page" value="export_page">匯出本頁</option>
-					<option name="export_selected" value="export_selected">匯出選取項目</option>
-				</select>
-				<button type="submit" name="export" class="img_button" value="Export">
-					<img src="./images/export.png">
-				</button>
-				<br>
-			</form>
+			<form id="all_form" action="index.php" method="post">
+				<div class="toolbar">
+					<!-- 匯出 -->
+					<div class="tool1">
+						<span class="instruction">匯出方式</span>
+						<select name="export_part" id="export_part">
+							<option name="export_part" value="">請選擇</option>
+							<option name="export_part" value="all">匯出全部</option>
+							<option name="export_part" value="page">匯出本頁</option>
+							<option name="export_part" value="selected">匯出選取項目</option>
+						</select>
+						<!-- 匯出時的頁碼 -->
+						<input type="text" id="expor_page" name="export_page" value="<?= $page ?>" hidden>
+						<button type="button" name="export" class="img_button" value="Export" onclick="export_action()">
+							<img src="./images/export.png">
+						</button>
+						<br>
+					</div>
 
-			<!-- 搜尋 -->
-			<form id="search_form" action="index.php" method="post">
-				<span class="instruction">排序方式</span>
-				<select name="search_menu" id="search_menu" onchange="this.form.submit()">
-					<option name="isbn" value="isbn,ASC" <?= ($sort == 'isbn,ASC')?'selected="selected"':'' ?> >ISBN:ASC</option>
-					<option name="isbn" value="isbn,DESC" <?= ($sort == 'isbn,DESC')?'selected="selected"':'' ?> >ISBN:DESC</option>
-					<option name="publisher" value="publisher,ASC" <?= ($sort == 'publisher,ASC')?'selected="selected"':'' ?> >出版社:ASC</option>
-					<option name="publisher" value="publisher,DESC" <?= ($sort == 'publisher,DESC')?'selected="selected"':'' ?> >出版社:DESC</option>
-					<option name="book_name" value="book_name,ASC" <?= ($sort == 'book_name,ASC')?'selected="selected"':'' ?> >書名:ASC</option>
-					<option name="book_name" value="book_name,DESC" <?= ($sort == 'book_name,DESC')?'selected="selected"':'' ?> >書名:DESC</option>
-					<option name="author" value="author,ASC" <?= ($sort == 'author,ASC')?'selected="selected"':'' ?> >作者:ASC</option>
-					<option name="author" value="author,DESC" <?= ($sort == 'author,DESC')?'selected="selected"':'' ?> >作者:DESC</option>
-					<option name="price" value="price,ASC" <?= ($sort == 'price,ASC')?'selected="selected"':'' ?> >定價:ASC</option>
-					<option name="price" value="price,DESC" <?= ($sort == 'price,DESC')?'selected="selected"':'' ?> >定價:DESC</option>
-					<option name="release_date" value="release_date,ASC" <?= ($sort == 'release_date,ASC')?'selected="selected"':'' ?> >發行日:ASC</option>
-					<option name="release_date" value="release_date,DESC" <?= ($sort == 'release_date,DESC')?'selected="selected"':'' ?> >發行日:DESC</option>
-				</select>
-				&nbsp;&nbsp;&nbsp;
-			</form>
+					<!-- 搜尋 -->
+					<div class="tool2" >
+						<span class="instruction">排序方式</span>
+						<select name="search_menu" id="search_menu" onchange="search_action()">
+							<option name="isbn" value="isbn,ASC" <?= ($sort == 'isbn,ASC')?'selected="selected"':'' ?>>ISBN:ASC
+							</option>
+							<option name="isbn" value="isbn,DESC" <?= ($sort == 'isbn,DESC')?'selected="selected"':'' ?>>
+								ISBN:DESC</option>
+							<option name="publisher" value="publisher,ASC"
+								<?= ($sort == 'publisher,ASC')?'selected="selected"':'' ?>>出版社:ASC</option>
+							<option name="publisher" value="publisher,DESC"
+								<?= ($sort == 'publisher,DESC')?'selected="selected"':'' ?>>出版社:DESC</option>
+							<option name="book_name" value="book_name,ASC"
+								<?= ($sort == 'book_name,ASC')?'selected="selected"':'' ?>>書名:ASC</option>
+							<option name="book_name" value="book_name,DESC"
+								<?= ($sort == 'book_name,DESC')?'selected="selected"':'' ?>>書名:DESC</option>
+							<option name="author" value="author,ASC" <?= ($sort == 'author,ASC')?'selected="selected"':'' ?>>
+								作者:ASC</option>
+							<option name="author" value="author,DESC" <?= ($sort == 'author,DESC')?'selected="selected"':'' ?>>
+								作者:DESC</option>
+							<option name="price" value="price,ASC" <?= ($sort == 'price,ASC')?'selected="selected"':'' ?>>定價:ASC
+							</option>
+							<option name="price" value="price,DESC" <?= ($sort == 'price,DESC')?'selected="selected"':'' ?>>
+								定價:DESC</option>
+							<option name="release_date" value="release_date,ASC"
+								<?= ($sort == 'release_date,ASC')?'selected="selected"':'' ?>>發行日:ASC</option>
+							<option name="release_date" value="release_date,DESC"
+								<?= ($sort == 'release_date,DESC')?'selected="selected"':'' ?>>發行日:DESC</option>
+						</select>
+					</div>
 
-			<!-- 分頁 -->
-			<form id="pagination_form" action="index.php" method="get">
-				<a href="index.php?page=1">|＜</a>
-				<a href="index.php?page=<?= $prev ?>">＜＜</a>
-				<span class="instruction">第 <?php echo $page ?> 頁</span>
-				<a href="index.php?page=<?= $next ?>">＞＞</a>
-				<a href="index.php?page=<?= $total_pages ?>">＞|</a>
-				&nbsp;&nbsp;&nbsp;
-				<label for="page" class="instruction">頁碼：</label>
-				<input type="number" name="page" id="page" min="1" max="<?= $total_pages ?>">
-				<button type="submit" name="page_search" class="img_button" value="<?= $page ?>">
-					<img src="./images/go.jpg">
-				</button>
-			</form>
-			
-			<br>
-
-			<!-- 表格 -->
-			<form id="change_form" name="change_form" action="index.php" method="post">
-				<table class="table" id="table">
-					<thead>
-						<tr>
-							<td>
-								<input type="checkbox" name="select_all" id="select_all" onclick="select_all_checkbox(this)">
-								<label for="select_all">全選</label>
-							</td>
-							<td>ISBN</td>
-							<td>出版社</td>
-							<td>書名</td>
-							<td>作者</td>
-							<td>定價</td>
-							<td>發行日</td>
-							<td>編輯 / 刪除</td>
-						</tr>
-					</thead>
-					<tbody>
+					<!-- 分頁 -->
+					<div class="tool3">
+						<?php 
+							if($total_pages > 1){
+						?>
+						<a href="index.php?page=1">|<</a>
+						<a href="index.php?page=<?= $prev ?>"><<</a>
 						<?php
-						if(!isset($a_isbn)){ ?>
+						}
+						?>
+						<span class="instruction">第 <?= $page ?> 頁</span>
+						<?php 
+						if($total_pages > 1){
+						?>
+						<a href="index.php?page=<?= $next ?>">>></a>
+						<a href="index.php?page=<?= $total_pages ?>" class="hover-reveal" data-tooltip="第<?= $total_pages ?>頁" onmouseover="setup_tooltip()">>|</a>
+						<div class="div-tooltip"></div>
+						<?php
+						}
+						?>
+					</div>
+
+					<!-- 跳頁 -->
+					<div class="tool4">
+						<label for="page" class="instruction">頁碼：</label>
+						<input type="number" name="page" id="page" min="1" max="<?= $total_pages ?>">
+						<button type="button" name="page_search" class="img_button" value="<?= $page ?>" onclick="page_action()">
+							<img src="./images/go.jpg">
+						</button>
+					</div>
+				</div>
+
+				<!-- 表格 -->
+				<div id="change_form">
+					<table class="table" id="table">
+						<thead>
+							<tr>
+								<td>
+									<input type="checkbox" name="select_all" id="select_all"
+										onclick="select_all_checkbox(this)">
+									<label for="select_all">全選</label>
+								</td>
+								<td>ISBN</td>
+								<td>出版社</td>
+								<td>書名</td>
+								<td>作者</td>
+								<td>定價</td>
+								<td>發行日</td>
+								<td>編輯 / 刪除</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							if($display == false){ ?>
 							<tr>
 								<!-- 查無資料 -->
 								<?= $s_no_record_message; ?>
 							</tr>
-						<?php	
-						}else{ 
-							for($i = 0; $i < $n_count; $i++){
-								?>
-									<tr id="book" onmouseover="change_color(this)" onmouseout="normal_color(this)">
-										<td>
-											<input type="checkbox" name="selected_book" value="<?= $a_isbn[$i] ?>">
-										</td>
-										<td ><?= $a_isbn[$i] ?></td>
-										<td><?= $a_publisher[$i] ?></td>
-										<td><?= $a_book_name[$i] ?></td>
-										<td><?= $a_author[$i] ?></td>
-										<td><?= $a_price[$i] ?></td>
-										<td><?= $a_date[$i] ?></td>
-										<td>
-											<!-- 修改 -->
-											<button type="submit" name="edit" id="edit" value="<?= $a_isbn[$i] ?>">編輯</button>
-											<!-- 刪除 -->
-											<input type="button" name="delete" id="delete" value="刪除" onclick="delete_submit('<?= $a_isbn[$i] ?>')">
-										</td>
-									</tr>
+							<?php	
+							}else{ 
+								for($i = 0; $i < $n_count; $i++){
+									?>
+							<tr id="book" onmouseover="change_color(this)" onmouseout="normal_color(this)">
+								<td>
+									<input type="checkbox" name="selected_book[]" value="<?= $a_book_row[$i]['isbn'] ?>">
+								</td>
+								<td><?= $a_book_row[$i]['isbn'] ?></td>
+								<td 
 								<?php
+								if(isset($publisher_info[$a_book_row[$i]['publisher']])){ 
+									echo 'class="hover-reveal" data-tooltip="' . $publisher_info[$a_book_row[$i]['publisher']] . '" 
+									onmouseover="setup_tooltip()"';
+								}
+								?>
+								><?= $a_book_row[$i]['publisher'] ?></td>
+								<td><?= $a_book_row[$i]['book_name'] ?></td>
+								<td><?= $a_book_row[$i]['author'] ?></td>
+								<td><?= $a_book_row[$i]['price'] ?></td>
+								<td><?= $a_book_row[$i]['release_date'] ?></td>
+								<td>
+									<!-- 修改 -->
+									<button type="submit" name="edit" id="edit" value="<?= $a_book_row[$i]['isbn'] ?>">編輯</button>
+									<!-- 刪除 -->
+									<input type="button" name="delete" id="delete" value="刪除" onclick="delete_action('<?= $a_book_row[$i]['isbn'] ?>')" >
+								</td>
+							</tr>
+							<?php
+								}
+								echo '<input type="hidden" name="selected_isbn" id="selected_isbn" disable="disable" value="">';
 							}
-							echo '<input type="hidden" name="selected_isbn" id="selected_isbn" disable="disable" value="">';
-						}
-						?>
-					</tbody>
-				</table>
+							?>
+						</tbody>
+					</table>
+				</div>
+
+				<input hidden type="text" id="action" name="action" value="">
 			</form>
 
 			<br>
 			<!-- 新增 -->
-			<form action="add_and_edit.php">
-				<input type="submit" name="add" class="add_button" value="新增" onclick="location.href='add_and_edit.php'">
+			<form class="bottom_line" action="add_and_edit.php">
+				<input type="submit" name="add" class="add_button" value="新增"
+					onclick="location.href='add_and_edit.php'">
 			</form>
 
 		</div>
-		
+
 	</div>
 </body>
+
 </html>

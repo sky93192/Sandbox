@@ -1,20 +1,18 @@
 @font-face {
-  font-family: 'DFKai-SB';
-  src: 
-	local("DFKai-SB"),
-	url('../font/kaiu.ttf') format("truetype"),
-	url('../font/kaiu.woff') format("woff");
+	font-family: 'DFKai-SB';
+	src:
+		local("DFKai-SB"),
+		url('../font/kaiu.ttf') format("truetype"),
+		url('../font/kaiu.woff') format("woff");
 }
 
 * {
-	font-family: "標楷體",DFKai-SB, Times, serif !important;
+	font-family: "標楷體", DFKai-SB, Times, serif !important;
 }
 
 .container {
 	max-width: 100%;
 	position: relative;
-	justify-content: center;
-	text-align: center;
 }
 
 main {
@@ -53,18 +51,34 @@ input {
 	padding-right: 5px;
 }
 
-select {
-	border: 2px solid rgb(190, 190, 190);
-	border-radius: 4px;
-	background-color: #fff;
-	color: #000;
+.title {
+	justify-content: center;
+	text-align: center;
+}
+
+.toolbar {
+	width: 90%;
+	text-align: end;
+	float: right;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 5px;
+}
+
+.tool2, .tool3, .tool4{
+	display: inline-block;
+}
+
+.bottom_line{
+	justify-content: center;
+	text-align: center;
 }
 
 .add_button {
-background-color: #66ff99;
+	background-color: #66ff99;
 }
 
-.back_button{
+.back_button {
 	background-color: #bbb;
 }
 
@@ -94,4 +108,18 @@ background-color: #66ff99;
 option {
 	color: #003399;
 	font-size: 13px;
+}
+
+.div-tooltip {
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	border: 2px solid #000;
+	background-color: #f1f1f1;
+	color: #000;
+	font-size: 13px;
+	padding: 10px 20px;
+	margin: 20px;
+	z-index: 99999;
 }
