@@ -98,7 +98,7 @@ if($display == true){
 	$prev = ($page-1 < 1)?$page:$page-1;
 	$next = ($page+1 > $total_pages)?$page:$page+1;
 
-	// tooitip資訊
+	// tooltip資訊
 	$tooltip_sql = "SELECT * FROM `publisher_info`";
 	$tooltip_result = $DB->query($tooltip_sql);
 
