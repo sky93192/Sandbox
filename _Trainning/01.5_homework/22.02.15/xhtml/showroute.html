@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style/main.css">
+	<title>Route</title>
+</head>
+<body>
+	<header>
+		<div class="title">ROUTE TABLE</div>
+		<ul>
+			<li><a href="showarp.php">ARP Table</a></li>
+			<li><a href="showroute.php">Route Table</a></li>
+			<li><a href="showinterface.php">Interface</a></li>
+		</ul>	
+	</header>
+	<div class="container">
+		<table>
+			<thead>
+				<tr>
+					<th>IP</th>
+					<th>Gateway</th>
+					<th>Genmask</th>
+					<th>Flags</th>
+					<th>Metric</th>
+					<th>Ref</th>
+					<th>Use</th>
+					<th>Interface</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					if(empty($route)){
+						echo '
+						<tr>
+							<td colspan="8">No Devide Found</td>
+						</tr>
+						';
+					}else{ 
+						for($i = 0; $i < count($route); $i++){ ?>
+						<tr>
+							<td><?= $route[$i]['ip']; ?></td>
+							<td><?= $route[$i]['gateway']; ?></td>
+							<td><?= $route[$i]['genmask']; ?></td>
+							<td><?= $route[$i]['flags']; ?></td>
+							<td><?= $route[$i]['metric']; ?></td>
+							<td><?= $route[$i]['ref']; ?></td>
+							<td><?= $route[$i]['use']; ?></td>
+							<td><?= $route[$i]['interface']; ?></td>
+						</tr>
+					<?php
+						}
+					}
+					?>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

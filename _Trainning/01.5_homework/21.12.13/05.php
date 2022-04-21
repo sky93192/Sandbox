@@ -8,8 +8,8 @@
 </head>
 <body>
 <form action="./05.php" method="post">
-	<label for="num">請輸入一個奇數:</label><br>
-  <input type="text" id="start" name="start" ><br>
+    <label for="num">請輸入一個奇數:</label><br>
+    <input type="text" id="start" name="start"><br>
 	<input type="submit"></button>
 </form>
 
@@ -19,6 +19,11 @@ if(isset($_POST['start'])){
 	$n = $_POST['start'];
 
 	function output($n){
+
+        if((intval($n) % 2 == 0) || ($n == "")){
+            echo "請輸入奇數";
+            exit;
+        }
             // set all slots as 0
         $magicSquare = array();
         for ($i = 0; $i < $n; $i++){
@@ -28,12 +33,12 @@ if(isset($_POST['start'])){
         }
 
         // Initialize position for 1
-        $i = (int)$n / 2;
-        $j = $n - 1;
+        $i = 0;
+        $j = (int)$n / 2;
 
         // One by one put all values in
         // magic square
-        for ($num = 1; $num <= $n * $n; ){
+        for ($num = 1; $num <= $n * $n;){
             
             // 3rd condition
             if ($i == -1 && $j == $n){
@@ -70,9 +75,9 @@ if(isset($_POST['start'])){
         }
     
         // Print magic square
-        echo "The Magic Square for n = ". $n. " : Sum of each row or column: ". $n * ($n * $n + 1) / 2;
-            
+        echo "這是 n = ". $n. "的魔方陣<br>每行或列的總和是: ". $n * ($n * $n + 1) / 2;
         echo "<br>";
+
         for ($i = 0; $i < $n; $i++){
             for ($j = 0; $j < $n; $j++){
                 echo $magicSquare[$i][$j] . " ";
@@ -80,17 +85,11 @@ if(isset($_POST['start'])){
             echo "<br>";
         }
 	}
- 
-// Driver program to test above function
- 
-// Works only when n is odd
-// $n = 7;
+
 output($n);
      
 // This code is contributed by mits.
 }
-
-
 
 ?>
 </body>

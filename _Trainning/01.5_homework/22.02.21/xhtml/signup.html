@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style/header.css">
+	<link rel="stylesheet" href="style/card.css">
+	<title>Sign up</title>
+</head>
+
+<body>
+	<header>
+		<div class="title">SIGN UP</div>
+		<ul>
+			<li><a href="home.php">Home</a></li>
+		</ul>
+	</header>
+	<form action="signup.php" method="post">
+		<div class="card">
+			<div class="card-title">
+				<h3><b>&nbsp;Sign up</b></h3>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="label-title">
+						<label for="username">Username:</label>
+					</div>
+					<input type="text" name="username" id="username" min="4" max="12" placeholder="4 to 12 letters or numbers" required>
+				</div>
+				<div class="row">
+					<div class="label-title">
+						<label for="password">Password:</label>
+					</div>
+					<input type="password" name="password" id="password" min="4" max="12" placeholder="4 to 12 letters or numbers" required>
+				</div>
+				<div class="row">
+					<div class="label-title">
+						<label for="password_confrim">Enter again:</label>
+					</div>
+					<input type="password" name="password_confirm" id="password_confirm" min="4" max="12" placeholder="4 to 12 letters or numbers" required>
+				</div>
+				<br>
+				<div class="row-button">
+					<button type="button" class="btn-second" name="signup" id="signup" value="Already have account"
+						onclick="window.location.href='login.php'">Already have account</button>
+					<input type="submit" class="btn-primary" name="signup" id="signup" value="Register">
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+
+</html>

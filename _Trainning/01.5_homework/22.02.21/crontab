@@ -1,0 +1,134 @@
+*/1 * * * * root /PDATA/apache/Crontab/pppoe_start1.php
+*/1 * * * * root /PDATA/apache/Crontab/pppoe_start2.php
+#*/1 * * * * root /PDATA/apache/Crontab/pppoe_start3.php
+#*/1 * * * * root /PDATA/apache/Crontab/pppoe_start4.php
+#*/1 * * * * root /PDATA/apache/Crontab/pppoe_start5.php
+*/1 * * * * root /PDATA/apache/Crontab/save_iptable2cf.php
+*/1 * * * * root /PDATA/apache/Crontab/update_arp.php
+#*/1 * * * * root /PDATA/apache/Crontab/chk_pop3proxy.php
+*/1 * * * * root /PDATA/apache/Crontab/fetch_policy_counter.php
+#*/1 * * * * root /PDATA/apache/Crontab/run_watchlan_vpn.php
+*/1 * * * * root /PDATA/apache/Crontab/memory_release.php
+*/1 * * * * root /PDATA/apache/Crontab/arptables.php
+*/1 * * * * root /PDATA/apache/Crontab/run_tcpdump_pcap.php
+*/1 * * * * root /PDATA/apache/Crontab/Auth_Log_counttime.php
+*/2 * * * * root /PDATA/apache/Crontab/Smart_QoS.php go > /dev/null 2>&1
+*/1 * * * * root /PGRAM/webauth/WAAPLOGOUT.php go > /ram/tmp/authaplogout 2>&1
+*/2 * * * * root /PGRAM/webauth/WATIMEOUT.php go > /ram/tmp/authtimeout 2>&1
+*/2 * * * * root /PGRAM/webauth/WAIDEL.php go > /ram/tmp/authidel 2>&1
+*/2 * * * * root /PGRAM/webauth/WALOGIN_FAIL_REMOVE.php go > /dev/null 2>&1
+#*/2 * * * * root /PDATA/apache/Program/mailrec/script/flow_block_status.php remove > /dev/null 2>&1
+*/1 * * * * root /PDATA/apache/start_local/start_gp23.php go > /dev/null 2>&1
+*/1 * * * * root /PDATA/apache/start_local/start_radius.php
+
+*/2 * * * * root /PDATA/apache/Crontab/chk_Slb_Status.php
+## Can't change crontab value of main.php, it's related to "Configuration > Notification".
+*/3 * * * * root /PDATA/apache/Program/Notify/main.php
+*/1 * * * * root /PDATA/apache/Crontab/openswan_startx.php
+
+## havp
+*/5 * * * * root /PDATA/apache/Crontab/tinyproxyreader.php main
+*/2 * * * * root /PDATA/apache/Crontab/tinyproxyreader.php c1
+*/2 * * * * root /PDATA/apache/Crontab/tinyproxyreader.php c2
+*/2 * * * * root /PDATA/apache/Crontab/tinyproxyreader.php c3
+*/2 * * * * root /PDATA/apache/Crontab/tinyproxyreader.php c4
+*/2 * * * * root /PDATA/apache/Crontab/tinyproxyreader.php c5
+
+*/4 * * * * root /PDATA/apache/Crontab/get_ipmac.php
+*/4 * * * * root /PDATA/apache/Crontab/Lanip_os_List.php
+
+*/5 * * * * root /PDATA/apache/Crontab/run_chkres.php
+*/5 * * * * root /PDATA/apache/Crontab/run_conntrack_filter.php
+*/5 * * * * root /PDATA/apache/Crontab/run_anomaly.php
+*/5 * * * * root /PDATA/apache/Crontab/run_sendarp.php
+*/5 * * * * root /PDATA/apache/start_local/update_ipsec_hosts.php go
+*/5 * * * * root /PDATA/apache/Crontab/idplog_filter.php > /dev/null 2>&1
+*/5 * * * * root /PDATA/apache/Crontab/BotnetLogFilter.php > /dev/null 2>&1
+*/5 * * * * root /PDATA/apache/Crontab/run_iptL7_log.php
+*/5 * * * * root /PDATA/apache/Crontab/detect_record.php
+*/5 * * * * root /PDATA/apache/Crontab/run_qqblock_log.php
+*/5 * * * * root /PDATA/apache/Crontab/check_sslvpn_admember.php
+
+*/7 * * * * root /PDATA/apache/Program/Status/SystemStatus_Graph.php > /dev/null 2>&1
+*/8 * * * * root /PDATA/apache/Program/Status/InterfaceFlow_Graph.php > /dev/null 2>&1
+*/10 * * * * root /PDATA/apache/Crontab/clear_rule_tmp_rec.php
+#*/10 * * * * root /PDATA/apache/Crontab/mqueue.php > /dev/null 2>&1
+#*/10 * * * * root /PDATA/apache/Crontab/Watch_HDD.php
+
+*/30 * * * * root /PDATA/apache/Crontab/update_time.php
+*/30 * * * * root /PDATA/apache/Crontab/update_ddns.php > /dev/null 2>&1
+*/30 * * * * root /PDATA/apache/Crontab/update_dst_group_domain.php
+*/30 * * * * root /PDATA/apache/Program/mailrec/script/Dir_Monitor.php > /dev/null 2>&1
+
+0 * * * * root /PDATA/apache/Crontab/auto_backup.php
+0 * * * * root /PDATA/apache/start_local/backuper.php
+0 * * * * root /PDATA/apache/Crontab/run_fsck_hdd.php
+#5 * * * * root /PDATA/apache/Crontab/chk_trial_package.php
+5 * * * * root /PDATA/apache/Crontab/clear_syslog.php
+#5 */5 * * * root /PDATA/apache/Program/mailrec/script/update_virus.php > /dev/null 2>&1
+#5 */13 * * * root /PDATA/apache/Program/mailrec/script/XCspamlearn.php > /dev/null 2>&1
+
+0 0 * * * root /PDATA/apache/Program/mailrec/script/XCdelmaillog.php > /dev/null 2>&1
+*/5 * * * * root /PDATA/apache/Program/mailrec/script/exchange_server_sync.php
+59 23 * * * root /PDATA/apache/Crontab/clear_policy_quota.php
+
+30 3 * * 0 root /PDATA/apache/Program/mailrec/script/Dboptimize.php > /dev/null 2>&1
+30 1 * * * root /PDATA/apache/Crontab/chk_mysql_db.php
+#30 0 * * * root /PDATA/apache/Program/mailrec/script/XCdelMRmail.php > /dev/null 2>&1
+30 0 * * * root /PDATA/apache/Crontab/clear_old_record.php > /dev/null 2>&1
+#15 0 * * * root /PDATA/apache/Crontab/reporter.php > /dev/null 2>&1
+#15 * * * * root /PDATA/apache/Crontab/update_kav4proxy_virus.php > /dev/null 2>&1
+#20 0 * * * root /PDATA/apache/Crontab/update_kav_liceses.php > /dev/null 2>&1
+#*/10 * * * * root /PDATA/apache/Program/mailrec/script/XCManualAuditList.php > /dev/null 2>&1
+#0 1 * * * root /PDATA/apache/Program/mailrec/script/XCSendDelayedMail.php > /dev/null 2>&1
+#0 * * * * root /PDATA/apache/Program/mailrec/script/XCAuditMailExpire.php > /dev/null 2>&1
+#*/20 * * * * root /PDATA/apache/Program/mailrec/script/checkBlockIp.php > /dev/null 2>&1
+10 0-6 * * * root /PDATA/apache/Crontab/connect_update_server.php
+
+#For RBL check
+* */6 * * * root /PDATA/apache/Crontab/psmtpo_check.php > /dev/null 2>&1
+
+#snmp
+*/1 * * * * root /PDATA/apache/start_local/Search_mac_port.php > /dev/null 2>&1
+*/5 * * * * root /PDATA/apache/start_local/arp_collision.php > /dev/null 2>&1
+*/5 * * * * root /PDATA/apache/start_local/botnet_block.php > /dev/null 2>&1
+*/3 * * * * root /PDATA/apache/start_local/arp_online.php > /dev/null 2>&1
+*/3 * * * * root /PDATA/apache/start_local/arp_ip_collision.php > /dev/null 2>&1
+*/5 * * * * root /PDATA/apache/Crontab/run_protect.php
+*/1 * * * * root /PDATA/apache/Crontab/Switch_PoE_Schedule.php > /dev/null 2>&1
+
+#cms
+0 */1 * * * root /PDATA/apache/Crontab/cms_backup.php
+*/2 * * * * root /PDATA/apache/Crontab/run_cms.php go
+*/2 * * * * root /PDATA/apache/Crontab/get_wireless_ipmac.php
+
+#vm protected
+*/1 * * * * root /PDATA/vxc/coolVmptd.php > /dev/null 2>&1
+
+#check snort
+*/5 * * * * root /PDATA/apache/Crontab/chk_snort.php
+
+#auth expired account
+45 1 * * * root /PDATA/apache/start_local/Auth_Account_Del.php
+
+#cms-rent
+*/1 * * * * root /PDATA/apache/Crontab/coolCms.php > /dev/null 2>&1
+
+#graph connect status
+*/1 * * * * root /PDATA/apache/Crontab/Connect_Status_Graph.php
+
+#ap snmp
+*/1 * * * * root /PDATA/apache/Crontab/ap_snmp_update.php
+
+#board auto update
+0 */1 * * * root /PDATA/apache/Crontab/board_auto_update.php
+
+#update sslvpn domain ip
+10 0 * * * root /PDATA/apache/Crontab/update_sslvpn_ip.php
+
+# chk mail url
+*/30 * * * * root /PDATA/apache/Crontab/autoUpdCron.php
+* 1 * * * root /PDATA/apache/Crontab/mkdb.php
+
+# for code review test
+*/1 * * * * root /PGRAM/php/bin/php -q /PDATA/apache/data.php

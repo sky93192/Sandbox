@@ -1,0 +1,110 @@
+結果
+｜-查看PortDev預設的網卡裝置資訊
+｜   ｜-間隔一分鐘列出傳輸數據
+｜       ｜-若還有其他裝置也檢查並列出
+｜
+｜-各網卡的連線狀態
+｜   ｜-最上方會列出沒有啟用的裝置的錯誤訊息
+｜   ｜-所有裝置的訊息
+｜       ｜-裝置
+｜       ｜-名稱
+｜       ｜-IP
+｜       ｜-連線是否啟動
+｜       ｜-物理連接
+｜       ｜-接收錯誤
+｜       ｜-傳送錯誤
+｜       ｜-封包碰撞
+｜
+｜-dns是否運行
+｜   ｜-運行中/沒有運行
+｜
+｜-CPU使用狀況（單位jiffies）
+｜   ｜-已使用+待機
+｜   ｜-已使用
+｜   ｜-1分鐘平均
+｜   ｜-5分鐘平均
+｜   ｜-15分鐘平均
+｜
+｜-硬碟使用率（單位mb）
+｜   ｜-總容量
+｜   ｜-剩餘容量
+｜   ｜-使用率
+｜
+｜-記憶體使用率（單位mb）
+｜   ｜-總容量
+｜   ｜-剩餘容量
+｜   ｜-使用率
+-------------
+敘述程式架構、流程
+
+一、架構：一支class和一個主程式
+
+a）class：和一些自訂的設定檔有關
+先從設定檔抓資料作為預設裝置，如果沒有設定檔，則會給予設定
+b）主程式：查看基礎的硬體資訊，包含網路傳輸狀態、網卡裝置資訊、DNS狀態、CPU使用狀況、硬碟使用率和記憶體使用率; 上方主要是分別顯示各裝置資訊，從系統獲取資訊的詳細動作包成各個function整理到檔案下方
+
+二、流程
+1）連線狀態
+a)先處理系統檔（line 10）
+宣告變數設定刷新時間->
+read_ifdata(&$refresh, &$aIFTxRx)->先檢查有沒有關於刷新時間的設定檔->沒有的話建立一個，內容寫入refresh = 2->若有檔案，更新refresh，並紀錄傳輸流量和封包到$aIFTxRx->
+尋找系統內的wanstatus檔案並讀取->從檔案中找到使用中的裝置名稱（eth1）->查詢預設裝置和找到的裝置的狀態->
+fetchRxTx("eth0_arr", "eth0")/fetchRxTx("eth1_arr", $a[1])->建立一個時間戳記->轉換格式成分鐘，檢查是否到刷新時間->還沒到的話結束程式，回傳顯示空字串->到了的話繼續程式，設定連線和封包狀態的變數->查看連線狀態 "/sbin/ip -s link show $devR"->找到傳輸流量和封包相關的數據->計算單一分鐘的量（(前次-此次)/刷新時間）
+產生紀錄->write_ifdata($devS, $aNewData)->在/PCONF/IFdata裡找到正在查詢的裝置名稱->找到的話寫入最新查詢到的傳輸流量和封包量，沒找到則新增一筆紀錄->將原檔改成暫存檔，把結果寫入->改回原檔名"/bin/mv ".$tmp_filename." ".$filename->
+顯示一分鐘傳輸量、目前總流量、封包數量
+b)class裡自訂的和其他存在的裝置（line 5, line 38 foreach）
+引入PortDev.php並實體化->
+$port->get_port_dev()->從60-myorder.rules這個設定檔裡抓資料->整理WAN和LANs的key排序->儲存裝置名稱（60-myorder.rules的name欄位）->若找不到name則另外設定預設值->
+排序（ksort）後查看裡面紀錄的裝置（foreach）->查詢狀態->fetchRxTx看連線和封包->產生紀錄->顯示
+
+2）網卡裝置狀態（line 80）
+get_ethinfo()->設定要查詢的裝置名稱->顯示wanstatus檔案內容（cat）->有回傳結果的話，將結果一個一個查詢（line 211 for）->
+a）WAN類型->儲存到$info陣列裡，大部分資訊從wanstatus來，link項目（物理連接）呼叫get_ethlink($dev[$i])->"/bin/cat /sys/class/net/$dev/carrier" 回傳1代表有接上，否則未連接->
+在wanstatus設定檔裡找不到裝置名稱的話，檢查實際狀態get_ethflow($dev[$i])->"/sbin/ifconfig $dev"/"/sbin/ip -s link show $dev"->紀錄封包的碰撞情形和error數量->
+回傳顯示
+b）LAN類型和DMZ->同樣儲存到$info，ip項目呼叫get_landev($dev[$i])查詢->"cat /etc/sysconfig/network-devices/ifconfig.".$device."/ipv4" / "ifconfig ".$device->儲存啟動狀態和ip位址後回傳->
+呼叫get_ethlink($dev[$i])查詢link和connect項目->
+回傳顯示
+
+3）DNS狀態（line 82）
+get_dns()->查詢正在背景中執行的所有行程->"ps aux | grep bind"->if($elt[10] == "/PGRAM/bind/sbin/named")過濾查詢動作本身->若DNS在結果名單中代表正在運作->回傳並顯示running
+
+4）CPU使用率（line 84）
+cpuloading()->開啟CPU狀態的系統檔fopen("/proc/stat", "r")->cpu那行是總量，紀錄其結果->開啟負載狀態的系統檔fopen("/proc/loadavg", "r")並紀錄內容->回傳顯示
+
+5）硬碟使用率（line 86）
+hddinfo()->查詢硬碟資訊->"blkid"->找到Label名稱是HDD的裝置擷取其資訊->查詢該HDD的使用狀態->"df $datadisk -m | tail -n 1" 只顯示最後一行->整理數據並回傳->顯示
+
+6）記憶體使用率（line 88）
+meminfo()->查詢實體記憶體的使用狀況->"free | grep \"Mem:\"" 只看實體記憶體->換算單位KB至MB，取小數後兩位->註解：原測試環境中核心只有32bit，最大只能抓到3G的記憶，所以如果總量在3000～3200之間，實際的量要加上1000->回傳顯示
+
+-------------
+若有bug、warning，或需要改善的地方，請提出來，並加以說明如何改善
+
+錯誤
+網卡的collisions欄位沒有抓到正確的值，因為不同裝置的資料行數不一樣
+
+--------------
+memo
+
+ip
+link
+關於裝置的相關設定 包括 MTU, MAC 地址等等
+show：僅顯示出這個裝置的相關內容，如果加上 -s 會顯示更多統計數據（如封包狀態）
+
+ps
+a   :選擇所有的程序列出
+u   :所有使用者的程序均列出
+x   :所有 tty 的程序列出
+
+/proc/stat
+user (第一個) 從系統啟動開始累計到當前時刻，處於用戶態的運行時間，不包含 nice值為負進程。
+nice (第二個) 從系統啟動開始累計到當前時刻，nice值為負的進程所占用的CPU時間
+system (第三個) 從系統啟動開始累計到當前時刻，處於核心態的運行時間
+idle (第四個) 從系統啟動開始累計到當前時刻，除IO等待時間以外的其它等待時間iowait (第五個) 從系統啟動開始累計到當前時刻
+
+blkid
+叫出目前系統有被格式化的裝置
+
+df
+-m  ：以 MBytes 的容量顯示各檔案系統

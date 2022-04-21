@@ -1,0 +1,82 @@
+* {
+	text-align: center;
+	background-color: rgb(240, 240, 240);
+	font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+	height: 50px;
+  background-color: #fff;
+	display: flex;
+	justify-content: space-around;
+  padding: 20px 40px;
+	margin: auto;
+	box-shadow: 0px 10px 10px rgb(214, 214, 214);
+}
+
+.title {
+  font-weight: 600;
+  font-size: 2rem;
+	background-color: white;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+	background-color: white;
+}
+
+header ul li {
+  font-weight: 600;
+  margin: 0px 14px;
+}
+
+header ul li a {
+	background-color: white;
+	text-decoration: none;
+}
+
+header ul li a:link, header ul li a:visited {
+	color: black;
+}
+
+header ul li a:hover {
+	color: rgb(65, 202, 236);
+}
+
+.container {
+	max-width: 100%;
+	position: relative;
+}
+
+table {
+	width: 65%;
+	border: 3px solid rgb(102, 102, 102);
+	text-align: center;
+	border-collapse: collapse;
+	box-shadow: 0px 10px 20px rgb(214, 214, 214);
+	margin: auto;
+	margin-top: 3rem;
+}
+
+thead {
+	padding: 10px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+}
+
+th, td {
+	background-color: white;
+	border: 1px solid #bbb;
+	padding: 5px;
+}
+
+.btn:hover {
+	background-color: rgb(65, 202, 236);
+	color: #fff;
+}
+
+.btn:active {
+	background-color: rgb(55, 182, 214);
+	color: #fff;
+}

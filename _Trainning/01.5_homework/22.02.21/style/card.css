@@ -1,0 +1,111 @@
+.card {
+	display: grid;
+	grid-template-rows: max-content 150px 1fr;
+	padding: 10px;
+	width: 500px;
+	height: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+	margin: auto;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-body{
+	height: 150px;
+}
+
+.card-body, .card-body h4{
+	background-color: white;
+  padding: 1rem 16px;
+}
+
+.card-body label{
+	background-color: white;
+}
+
+.card-body .row{
+	padding-left: 60px;
+	padding-right: 60px;
+	margin: 5px;
+	background-color: white;
+}
+
+.label-title{
+	display: inline-block;
+	width: 100px;
+	text-align: end;
+	background-color: white;
+}
+
+.card-body .row-button {
+	display: flex;
+	justify-content: space-around;
+	background-color: white;
+}
+
+input[type=text], input[type=password]{
+	border: 1px solid #ccc;
+  border-radius: 4px;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+input[type=text], input[type=password]{
+	width: 180px;
+}
+
+input[type=text]:focus ,input[type=password]:focus{
+  background-color: rgb(248, 248, 248);
+}
+
+.btn-primary{
+	border: rgb(76, 211, 63);
+	border-radius: 5px;
+	padding: 5px 10px;
+	background-color: rgb(76, 211, 63);
+	color: rgb(50, 50, 50);
+}
+
+.btn-primary:hover{
+	border: rgb(107, 240, 95);;
+	border-radius: 5px;
+	padding: 5px 10px;
+	background-color: rgb(107, 240, 95);
+	color: rgb(50, 50, 50);
+}
+
+.btn-primary:active{
+	border: rgb(13, 161, 0);
+	border-radius: 5px;
+	padding: 5px 10px;
+	background-color: rgb(13, 161, 0);
+	color: rgb(240, 240, 240);
+}
+
+.btn-second{
+	border: 1px solid rgb(66, 66, 66);
+	border-radius: 5px;
+	padding: 5px 10px;
+	background-color: rgb(226, 226, 226);
+	color: rgb(50, 50, 50);
+}
+
+.btn-second:hover{
+	border: 1px solid rgb(66, 66, 66);
+	border-radius: 5px;
+	padding: 5px 10px;
+	background-color:  rgb(248, 248, 248);
+	color: rgb(50, 50, 50);
+}
+
+.btn-second:active{
+	border: 1px solid rgb(66, 66, 66);
+	border-radius: 5px;
+	padding: 5px 10px;
+	background-color: rgb(160, 160, 160);
+	color: rgb(240, 240, 240);
+}

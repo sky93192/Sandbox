@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style/main.css">
+	<script src="js/showarp.js"></script>
+	<title>ARP</title>
+</head>
+<body>
+	<header>
+		<div class="title">ARP TABLE</div>
+		<ul>
+			<li><a href="showarp.php">ARP Table</a></li>
+			<li><a href="showroute.php">Route Table</a></li>
+			<li><a href="showinterface.php">Interface</a></li>
+		</ul>	
+	</header>
+	<div class="container">
+		<form action="showarp.php" id="arpform" method="post">
+			<table>
+				<thead>
+					<tr>
+						<th>IP</th>
+						<th>MAC</th>
+						<th>Interface</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					if(empty($arp)){
+						echo '
+						<tr>
+							<td colspan="4">No Devide Found</td>
+						</tr>
+						';
+					}else{ 
+						for($i = 0; $i < count($arp); $i++){ ?>
+						<tr>
+							<td><?= $arp[$i]['ip']; ?></td>
+							<td><?= $arp[$i]['mac']; ?></td>
+							<td><?= $arp[$i]['interface']; ?></td>
+							<td>
+								<button class="btn" name="delete" id="delete" value="delete" onclick="delete_action('<?= $arp[$i]['ip']; ?>')">Delete</button>
+							</td>
+						</tr>
+					<?php
+						}
+					}
+					?>
+					<tr>
+						<td>
+							<input type="text" name="ip" id="ip" pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$" placeholder="IP">
+						</td>
+						<td>
+							<input type="text" name="mac" id="mac" pattern="^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$" placeholder="MAC">
+						</td>
+						<td>
+							<input type="text" name="dev" id="dev" placeholder="eth0/eth3">
+						</td>
+						<td>
+							<input type="submit" class="btn" name="add_ip" id="add_ip" value="Add new IP">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="hidden" name="selected_dev" id="selected_dev" disable="disable" value="">
+		</form>
+	</div>
+</body>
+</html>

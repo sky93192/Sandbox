@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style/header.css">
+	<link rel="stylesheet" href="style/card.css">
+	<link rel="stylesheet" href="style/home.css">
+	<title>Home</title>
+</head>
+<body>
+	<header>
+		<div class="title">HOME</div>
+		<ul>
+			<?php 
+			if(isset($_SESSION['user'])){
+			?>
+			<li>
+				<form action="home.php" method="post">
+					<button type="submit" class="btn-second" name="logout" id="logout" value="Log out" onclick="this.form.submit()">Log out</button>
+				</form>
+			</li>
+			<?php	
+			}
+			?>
+		</ul>
+	</header>
+<?php
+if(!isset($_SESSION['user'])){
+?>
+	<!-- no account -->
+	<div class="card">
+		<div class="card-title">
+			<h3><b>&nbsp;Invalid user</b></h3>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<h4>Please log in or create a new account.</h4>
+			</div>
+			<div class="row-button">
+				<button type="button" class="btn-second" name="signup-page" id="signup-page" value="Create new account" onclick="window.location.href='signup.php'">Create new account</button>
+				<button type="button" class="btn-primary" name="login-page" id="login-page" value="Log in" onclick="window.location.href='login.php'">Log in</button>
+			</div>
+		</div>
+	</div>
+<?php
+}else{
+?>
+	<!-- log in -->
+	<form id="home" action="home.php" method="post">
+		<div class="toolbar">
+			<!-- update -->
+			<div class="tool">
+				<span>Update frequency</span>
+				<select name="update_time" id="update_time" onchange="this.form.submit()">
+					<option name="1min" value="1min" <?= ($update == '1min')?'selected="selected"':'' ?> >1 minute</option>
+					<option name="3min" value="3min" <?= ($update == '3min')?'selected="selected"':'' ?> >3 minutes</option>
+					<option name="5min" value="5min" <?= ($update == '5min')?'selected="selected"':'' ?> >5 minutes</option>
+				</select>
+			</div>
+			<!-- sort -->
+			<div class="tool">
+				<span>Sort</span>
+				<select name="sort_menu" id="sort_menu" onchange="this.form.submit()">
+					<option name="time_asc" value="time_asc" <?= ($sort == 'time_asc')?'selected="selected"':'' ?> >Time (ASC)</option>
+					<option name="time_desc" value="time_desc" <?= ($sort == 'time_desc')?'selected="selected"':'' ?> >Time (DESC)</option>
+					<option name="loadavg1_asc" value="loadavg1_asc" <?= ($sort == 'loadavg1_asc')?'selected="selected"':'' ?> >Load Avarage 1min (ASC)</option>
+					<option name="loadavg1_desc" value="loadavg1_desc" <?= ($sort == 'loadavg1_desc')?'selected="selected"':'' ?> >Load Avarage 1min (DESC)</option>
+					<option name="loadavg5_asc" value="loadavg5_asc" <?= ($sort == 'loadavg5_asc')?'selected="selected"':'' ?> >Load Avarage 5min (ASC)</option>
+					<option name="loadavg5_desc" value="loadavg5_desc" <?= ($sort == 'loadavg5_desc')?'selected="selected"':'' ?> >Load Avarage 5min (DESC)</option>
+					<option name="loadavg15_asc" value="loadavg15_asc" <?= ($sort == 'loadavg15_asc')?'selected="selected"':'' ?> >Load Avarage 15min (ASC)</option>
+					<option name="loadavg15_desc" value="loadavg15_desc" <?= ($sort == 'loadavg15_desc')?'selected="selected"':'' ?> >Load Avarage 15min (DESC)</option>
+					<option name="tasks_asc" value="tasks_asc" <?= ($sort == 'tasks_asc')?'selected="selected"':'' ?> >Tasks (ASC)</option>
+					<option name="tasks_desc" value="tasks_desc" <?= ($sort == 'tasks_desc')?'selected="selected"':'' ?> >Tasks (DESC)</option>
+					<option name="rtasks_asc" value="rtasks_asc" <?= ($sort == 'rtasks_asc')?'selected="selected"':'' ?> >Running Tasks (ASC)</option>
+					<option name="rtasks_desc" value="rtasks_desc" <?= ($sort == 'rtasks_desc')?'selected="selected"':'' ?> >Running Tasks (DESC)</option>
+					<option name="cpu_asc" value="cpu_asc" <?= ($sort == 'cpu_asc')?'selected="selected"':'' ?> >CPU (ASC)</option>
+					<option name="cpu_desc" value="cpu_desc" <?= ($sort == 'cpu_desc')?'selected="selected"':'' ?> >CPU (DESC)</option>
+				</select>
+			</div>
+			<!-- search -->
+			<div class="tool">
+				<span>Search(Time)</span>
+				<label for="start_date">from:</label>
+				<input type="date" name="start_date" id="start_date" max="<?= date('Y-m-d'); ?>">
+				<input type="time" name="start_time" id="start_time">
+				<label for="end_date">to:</label>
+				<input type="date" name="end_date" id="end_date" max="<?= date('Y-m-d'); ?>">
+				<input type="time" name="end_time" id="end_time">
+				<button type="button" class="btn-primary" name="search" id="search" value="search" onclick="this.form.submit()">Go</button>
+			</div>
+		</div>
+	
+		<!-- table -->
+		<table>
+			<thead>
+				<tr>
+					<th>Time</th>
+					<th>Load Average( 1 / 5 / 15 min)</th>
+					<th>Tasks</th>
+					<th>Running Task</th>
+					<th>CPU</th>
+					<th>PID</th>
+					<th>Process Command</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				if(empty($display)){
+					echo '
+					<tr>
+						<td colspan="7">No Record Found</td>
+					</tr>
+					';
+				}else{ 
+					for($i = 0; $i < count($display); $i += $update){ ?>
+						<tr>
+							<td><?= $display[$sort_key[$i]]['time']; ?></td>
+							<td><?= $display[$sort_key[$i]]['load_avg1']. ' / '. $display[$sort_key[$i]]['load_avg5']. ' / '. $display[$sort_key[$i]]['load_avg15']; ?></td>
+							<td><?= $display[$sort_key[$i]]['tasks']; ?></td>
+							<td><?= $display[$sort_key[$i]]['running_tasks']; ?></td>
+							<td><?= $display[$sort_key[$i]]['cpu']; ?></td>
+							<td><?= $display[$sort_key[$i]]['pid']; ?></td>
+							<td><?= $display[$sort_key[$i]]['command']; ?></td>
+						</tr>
+				<?php
+					}
+				}
+				?>
+			</tbody>
+		</table>
+	</form>
+<?php
+}
+?>
+</body>
+</html>

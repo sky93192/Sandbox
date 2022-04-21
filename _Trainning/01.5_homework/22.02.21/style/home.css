@@ -1,0 +1,61 @@
+.toolbar{
+	display: flex;
+	margin-top: 3rem;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	width: 65%;
+	justify-content: end;
+}
+
+.tool{
+	padding: 0px 10px;
+}
+
+table {
+	width: 65%;
+	border: 3px solid rgb(102, 102, 102);
+	text-align: center;
+	border-collapse: collapse;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
+	margin-top: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5rem;
+}
+
+table:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+thead {
+	padding: 10px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+}
+
+th, td {
+	background-color: white;
+	border: 1px solid #bbb;
+	padding: 5px;
+}
+
+input[type=date], input[type=time], select {
+	border: 1px solid #ccc;
+  border-radius: 4px;
+	box-sizing: border-box;
+	background-color: white;
+}
+
+input[type=date]{
+	width: 120px;
+}
+
+input[type=time]{
+	width: 100px;
+}
+
+input[type=date]:focus, input[type=time]:focus, select:focus {
+  background-color: rgb(248, 248, 248);
+}

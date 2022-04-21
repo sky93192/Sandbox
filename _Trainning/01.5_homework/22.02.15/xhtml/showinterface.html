@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style/main.css">
+	<title>Interface</title>
+</head>
+<body>
+	<header>
+		<div class="title">INTERFACE</div>
+		<ul>
+			<li><a href="showarp.php">ARP Table</a></li>
+			<li><a href="showroute.php">Route Table</a></li>
+			<li><a href="showinterface.php">Interface</a></li>
+		</ul>	
+	</header>
+	<div class="container">
+		<table>
+			<thead>
+				<tr>
+					<th>Device</th>
+					<th>IP</th>
+					<th>Mask</th>
+					<th>Connection</th>
+					<th>Link</th>
+					<th>Packets TX/RX</th>
+					<th>Flow TX/RX bytes</th>
+					<th>Errors TX/RX</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				for($j = 0; $j < count($interface); $j++){ 
+					if(count($interface[$j]) < 2){ 
+					?>
+						<tr>
+							<td><?= $interface[$j]['dev']; ?></td>
+							<td colspan="7">Device Dose Not Exist</td>
+						</tr>
+					<?php
+					}else{
+					?>
+					<tr>
+						<td><?= $interface[$j]['dev']; ?></td>
+						<td><?= (isset($interface[$j]['ip']))?$interface[$j]['ip']:'N/A'; ?></td>
+						<td><?= (isset($interface[$j]['mask']))?$interface[$j]['mask']:'N/A'; ?></td>
+						<td><?= $interface[$j]['connect']; ?></td>
+						<td><?= $interface[$j]['link']; ?></td>
+						<td><?= (isset($interface[$j]['packets']))?$interface[$j]['packets']:'N/A'; ?></td>
+						<td><?= (isset($interface[$j]['flow']))?$interface[$j]['flow']:'N/A'; ?></td>
+						<td><?= (isset($interface[$j]['errors']))?$interface[$j]['errors']:'N/A'; ?></td>
+					</tr>
+				<?php
+					}
+				}
+				?>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
